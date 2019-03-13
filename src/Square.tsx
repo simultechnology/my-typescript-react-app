@@ -1,8 +1,12 @@
 import * as React from 'react';
 
+type SquareType = string | null;
+
 interface ISquareProps {
-    value: number;
+    value: string | null;
+    onClick: () => void;
 }
+
 
 interface ISquareState {
     value: string | null;
@@ -15,22 +19,16 @@ class Square extends React.Component<ISquareProps, ISquareState> {
         this.state = {
             value: null,
         };
-        this.handleClick = this.handleClick.bind(this)
     }
 
     public render() {
         return (
-            <button className="square" onClick={this.handleClick}>
-                {this.state.value}
+            <button className="square" onClick={this.props.onClick}>
+                {this.props.value}
             </button>
         );
     }
 
-    private handleClick() {
-        console.log(this);
-        this.setState({value: 'X'})
-    }
-
 }
 
-export default Square
+export { SquareType, Square }

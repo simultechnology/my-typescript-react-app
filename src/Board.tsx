@@ -1,13 +1,17 @@
 import * as React from 'react';
-import Square from './Square';
+import {Square, SquareType} from './Square';
 
-class Board extends React.Component {
+interface IBoardState {
+    squares: SquareType[];
+}
 
+class Board extends React.Component<any, IBoardState>  {
     constructor(props: any) {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
         };
+        // this.handleClick = this.handleClick.bind(this)
     }
 
     public render() {
@@ -35,8 +39,20 @@ class Board extends React.Component {
         );
     }
 
+    private handleClick(i: number) {
+        console.log(i);
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares});
+    }
+
     private renderSquare(i: number) {
-        return <Square value={i} />;
+        return (
+            <Square
+                value={this.state.squares[i]}
+                onClick={() => this.handleClick(i)}
+            />
+        );
     }
 }
 
